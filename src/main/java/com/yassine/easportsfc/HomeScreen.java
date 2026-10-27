@@ -25,9 +25,9 @@ public class HomeScreen extends Application {
         title.setPadding(new Insets(15, 12, 15, 12));
 
         Label description = new Label("Met deze applicatie kun je EA Sports FC-toernooien eenvoudig beheren.\n" +
-                        "Registreer spelers, maak toernooien aan, beheer deelnames\n" +
-                        "en sla partijen met hun uitslagen op.\n\n" +
-                        "Kies een pagina om te beginnen."
+                "Registreer spelers, maak toernooien aan, beheer deelnames\n" +
+                "en sla partijen met hun uitslagen op.\n\n" +
+                "Kies een pagina om te beginnen."
         );
 
         description.setWrapText(true);
@@ -48,6 +48,26 @@ public class HomeScreen extends Application {
         matchScreenButton.setPrefSize(100, 20);
 
         Scene homeScreen = new Scene(layout, 800, 500);
+
+        playerScreenButton.setOnAction(event -> {
+            PlayerScreen playerScreen = new PlayerScreen();
+            playerScreen.show(stage, homeScreen );
+        });
+
+        tournamentScreenButton.setOnAction(event -> {
+            TournamentScreen tournamentScreen = new TournamentScreen();
+            tournamentScreen.show(stage, homeScreen );
+        });
+
+        participationScreenButton.setOnAction(event -> {
+            ParticipationScreen participationScreen = new ParticipationScreen();
+            participationScreen.show(stage, homeScreen );
+        });
+
+        matchScreenButton.setOnAction(event -> {
+            MatchScreen matchScreen = new MatchScreen();
+            matchScreen.show(stage, homeScreen );
+        });
 
         nav.getChildren().addAll(playerScreenButton, tournamentScreenButton, participationScreenButton, matchScreenButton);
 
