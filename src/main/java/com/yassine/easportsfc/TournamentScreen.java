@@ -29,6 +29,10 @@ public class TournamentScreen {
         nav.setStyle("-fx-background-color: #ff6500;");
         Button backButton = new Button("Terug");
         backButton.setPrefSize(100, 20);
+        Button tournamentAdd = new Button("Toernooi aanmaken");
+        tournamentAdd.setPrefSize(100, 20);
+
+        Scene tournamentScreen  = new Scene(layout, 800, 500);
 
         // Terugknop
         backButton.setOnAction(event -> {
@@ -36,12 +40,16 @@ public class TournamentScreen {
             stage.setTitle("Home");
         });
 
-        nav.getChildren().addAll(backButton);
+        tournamentAdd.setOnAction(event -> {
+            AddTournamentScreen addTournamentScreen = new AddTournamentScreen();
+            addTournamentScreen.show(stage, tournamentScreen);
+        });
+
+        nav.getChildren().addAll(backButton, tournamentAdd);
 
         // Alles toevoegen aan de layout
         layout.getChildren().addAll(nav, title, description);
 
-        Scene tournamentScreen  = new Scene(layout, 800, 500);
         stage.setTitle("Toernooien pagina");
         stage.setScene(tournamentScreen );
     }

@@ -31,6 +31,10 @@ public class PlayerScreen {
         nav.setStyle("-fx-background-color: #ff6500;");
         Button backButton = new Button("Terug");
         backButton.setPrefSize(100, 20);
+        Button playerAdd = new Button("Speler aanmaken");
+        playerAdd.setPrefSize(100, 20);
+
+        Scene playerScreen  = new Scene(layout, 800, 500);
 
         // Terugknop
         backButton.setOnAction(event -> {
@@ -38,12 +42,16 @@ public class PlayerScreen {
             stage.setTitle("Home");
         });
 
-        nav.getChildren().addAll(backButton);
+        playerAdd.setOnAction(event -> {
+            AddPlayerScreen addPlayerScreen = new AddPlayerScreen();
+            addPlayerScreen.show(stage, playerScreen);
+        });
+
+        nav.getChildren().addAll(backButton, playerAdd);
 
         // Alles toevoegen aan de layout
         layout.getChildren().addAll(nav, title, description);
 
-        Scene playerScreen  = new Scene(layout, 800, 500);
         stage.setTitle("Spelers pagina");
         stage.setScene(playerScreen );
     }
