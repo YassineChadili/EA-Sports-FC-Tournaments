@@ -29,6 +29,10 @@ public class MatchScreen {
         nav.setStyle("-fx-background-color: #ff6500;");
         Button backButton = new Button("Terug");
         backButton.setPrefSize(100, 20);
+        Button matchAdd = new Button("Partij aanmaken");
+        matchAdd.setPrefSize(100, 20);
+
+        Scene matchScreen  = new Scene(layout, 800, 500);
 
         // Terugknop
         backButton.setOnAction(event -> {
@@ -36,12 +40,16 @@ public class MatchScreen {
             stage.setTitle("Home");
         });
 
-        nav.getChildren().addAll(backButton);
+        matchAdd.setOnAction(event -> {
+            AddMatchScreen addMatchScreen = new AddMatchScreen();
+            addMatchScreen.show(stage, matchScreen);
+        });
+
+        nav.getChildren().addAll(backButton, matchAdd);
 
         // Alles toevoegen aan de layout
         layout.getChildren().addAll(nav, title, description);
 
-        Scene matchScreen  = new Scene(layout, 800, 500);
         stage.setTitle("Partijen pagina");
         stage.setScene(matchScreen );
     }

@@ -17,7 +17,7 @@ public class AddTournamentScreen {
         layout.setSpacing(15);
 
         // Titel toevoegen
-        Label title = new Label("Toernooien aanmaken:");
+        Label title = new Label("Toernooi aanmaken:");
         title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         title.setPadding(new Insets(15, 12, 15, 12));
 

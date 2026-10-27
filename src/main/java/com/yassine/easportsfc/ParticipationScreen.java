@@ -29,6 +29,10 @@ public class ParticipationScreen {
         nav.setStyle("-fx-background-color: #ff6500;");
         Button backButton = new Button("Terug");
         backButton.setPrefSize(100, 20);
+        Button participationAdd = new Button("Deelname aanmaken");
+        participationAdd.setPrefSize(100, 20);
+
+        Scene participationScreen = new Scene(layout, 800, 500);
 
         // Terugknop
         backButton.setOnAction(event -> {
@@ -36,13 +40,17 @@ public class ParticipationScreen {
             stage.setTitle("Home");
         });
 
-        nav.getChildren().addAll(backButton);
+        participationAdd.setOnAction(event -> {
+            AddParticipationScreen addParticipationScreen = new AddParticipationScreen();
+            addParticipationScreen.show(stage, participationScreen);
+        });
+
+        nav.getChildren().addAll(backButton, participationAdd);
 
         // Alles toevoegen aan de layout
         layout.getChildren().addAll(nav, title, description);
 
-        Scene matchScreen  = new Scene(layout, 800, 500);
         stage.setTitle("Deelnamens pagina");
-        stage.setScene(matchScreen );
+        stage.setScene(participationScreen );
     }
 }
