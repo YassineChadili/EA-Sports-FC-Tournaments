@@ -11,6 +11,12 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class AddParticipationScreen {
     public void show(Stage stage, Scene participationScreen ) {
         VBox layout = new VBox();
@@ -21,12 +27,12 @@ public class AddParticipationScreen {
         title.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         title.setPadding(new Insets(15, 12, 15, 12));
 
-        // Invoerveld
+        // Invoervelden
         TextField playerField = new TextField();
-        playerField.setPromptText("Speler");
+        playerField.setPromptText("Speler ID");
 
         TextField tournamentField = new TextField();
-        tournamentField.setPromptText("Toernooi");
+        tournamentField.setPromptText("Toernooi ID");
 
         // Horizontale rij met knoppen
         HBox nav = new HBox();
@@ -46,6 +52,55 @@ public class AddParticipationScreen {
 
         // Opslaan-knop
         Button saveButton = new Button("Opslaan");
+
+        saveButton.setOnAction(event -> {
+
+            String spelerId = playerField.getText();
+            String toernooiId = tournamentField.getText();
+
+            // Controleren of alle velden ingevuld zijn
+            if (spelerId.isEmpty() || toernooiId.isEmpty())
+            {
+                System.out.println("Vul alle velden in.");
+                return;
+            }
+
+            int speler;
+            int toernooi;
+
+            try {
+                speler = Integer.parseInt(spelerId);
+                toernooi = Integer.parseInt(toernooiId);
+            } catch (NumberFormatException e) {
+                System.out.println("ID's moeten getallen zijn.");
+                return;
+            }
+
+            String sql = "INSERT INTO deelnames (speler_id, toernooi_id) VALUES (?, ?)";
+
+            try (Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/ea_sports_fc",
+                    "root",
+                    "");
+                 PreparedStatement statement =
+                         connection.prepareStatement(sql)) {
+
+                statement.setInt(1, speler);
+                statement.setInt(2, toernooi);
+
+                int rowsCreated = statement.executeUpdate();
+
+                if (rowsCreated > 0) {
+                    System.out.println("Deelname succesvol toegevoegd!");
+
+                    // Terug naar het deelnamesoverzicht
+                    new ParticipationScreen().show(stage, participationScreen);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
 
         // Alles toevoegen aan de layout
         layout.getChildren().addAll(nav, title, playerField, tournamentField, saveButton);
