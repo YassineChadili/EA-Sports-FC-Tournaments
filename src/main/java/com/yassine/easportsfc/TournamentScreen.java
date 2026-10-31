@@ -10,6 +10,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.sql.*;
+
 public class TournamentScreen {
     public void show(Stage stage, Scene homeScreen ) {
         VBox layout = new VBox();
@@ -49,6 +51,82 @@ public class TournamentScreen {
 
         // Alles toevoegen aan de layout
         layout.getChildren().addAll(nav, title, description);
+
+        try {
+            Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/ea_sports_fc", "root", "");
+
+            Statement statement = connection.createStatement();
+            ResultSet output = statement.executeQuery("SELECT * FROM toernooien");
+
+            while (output.next()) {
+
+                // Gegevens uit de database in een Toernooi-object plaatsen
+                Toernooi toernooi = new Toernooi(
+                        output.getInt("id"),
+                        output.getString("naam"),
+                        output.getDate("datum").toLocalDate()
+                );
+
+                // Gegevens uit het Toernooi-object halen
+                Label naam = new Label("Toernooi: " + toernooi.getNaam());
+                Label datum = new Label("Datum: " + toernooi.getDatum());
+
+                // Ruimte rond de labels
+                naam.setPadding(new Insets(5, 12, 0, 12));
+                datum.setPadding(new Insets(5, 12, 0, 12));
+
+                // Een horizontale layout maken voor één toernooi
+                HBox toernooiRow = new HBox();
+                toernooiRow.setSpacing(15);
+
+                Button editButton = new Button("Bewerken");
+
+                editButton.setOnAction(event -> {
+                    EditTournamentScreen editTournamentScreen = new EditTournamentScreen();
+                    editTournamentScreen.show(stage, tournamentScreen, toernooi);
+                });
+
+                Button deleteButton = new Button("Verwijderen");
+
+                deleteButton.setOnAction(event -> {
+                    String sql = "DELETE FROM toernooien WHERE id = ?";
+
+                    try (Connection deleteConnection = DriverManager.getConnection(
+                            "jdbc:mysql://localhost:3306/ea_sports_fc",
+                            "root",
+                            "");
+                         PreparedStatement deleteStatement =
+                                 deleteConnection.prepareStatement(sql)) {
+
+                        deleteStatement.setInt(1, toernooi.getId());
+
+                        int rowsDeleted = deleteStatement.executeUpdate();
+
+                        if (rowsDeleted > 0) {
+                            System.out.println("Toernooi succesvol verwijderd!");
+
+                            // Toernooienoverzicht opnieuw laden
+                            new TournamentScreen().show(stage, homeScreen);
+
+                        } else {
+                            System.out.println("Toernooi niet gevonden.");
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+
+                toernooiRow.getChildren().addAll(naam, datum, editButton, deleteButton);
+
+                // De volledige rij toevoegen aan de hoofd-layout
+                layout.getChildren().add(toernooiRow);
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
         stage.setTitle("Toernooien pagina");
         stage.setScene(tournamentScreen );
