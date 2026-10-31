@@ -11,6 +11,11 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class AddMatchScreen {
     public void show(Stage stage, Scene matchScreen ) {
         VBox layout = new VBox();
@@ -23,13 +28,13 @@ public class AddMatchScreen {
 
         // Invoerveld
         TextField player1Field = new TextField();
-        player1Field.setPromptText("Speler 1");
+        player1Field.setPromptText("Speler 1 ID");
 
         TextField player2Field = new TextField();
-        player2Field.setPromptText("Speler 2");
+        player2Field.setPromptText("Speler 2 ID");
 
         TextField tournamentField = new TextField();
-        tournamentField.setPromptText("Toernooi");
+        tournamentField.setPromptText("Toernooi ID");
 
         TextField scoreField = new TextField();
         scoreField.setPromptText("Uitslag");
@@ -52,6 +57,71 @@ public class AddMatchScreen {
 
         // Opslaan-knop
         Button saveButton = new Button("Opslaan");
+
+        saveButton.setOnAction(event -> {
+
+            String player1Text = player1Field.getText();
+            String player2Text = player2Field.getText();
+            String tournamentText = tournamentField.getText();
+            String uitslag = scoreField.getText();
+
+            // Controleren of alle velden ingevuld zijn
+            if (player1Text.isEmpty() || player2Text.isEmpty() || tournamentText.isEmpty() || uitslag.isEmpty())
+            {
+                System.out.println("Vul alle velden in.");
+                return;
+            }
+
+            int speler1;
+            int speler2;
+            int toernooi;
+
+            try {
+                speler1 = Integer.parseInt(player1Text);
+                speler2 = Integer.parseInt(player2Text);
+                toernooi = Integer.parseInt(tournamentText);
+
+            } catch (NumberFormatException e) {
+                System.out.println("De ID's moeten getallen zijn.");
+                return;
+            }
+
+            // Controleren of spelers verschillend zijn
+            if (speler1 == speler2)
+            {
+                System.out.println("Een speler kan niet tegen zichzelf spelen.");
+                return;
+            }
+
+            String sql = "INSERT INTO partijen "
+                    + "(speler1_id, speler2_id, toernooi_id, uitslag) "
+                    + "VALUES (?, ?, ?, ?)";
+
+            try (Connection connection = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/ea_sports_fc",
+                    "root",
+                    "");
+                 PreparedStatement statement =
+                         connection.prepareStatement(sql)) {
+
+                statement.setInt(1, speler1);
+                statement.setInt(2, speler2);
+                statement.setInt(3, toernooi);
+                statement.setString(4, uitslag);
+
+                int rowsCreated = statement.executeUpdate();
+
+                if (rowsCreated > 0) {
+                    System.out.println("Partij succesvol toegevoegd!");
+
+                    // Terug naar het partijenoverzicht
+                    new MatchScreen().show(stage, matchScreen);
+                }
+
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
 
         // Alles toevoegen aan de layout
         layout.getChildren().addAll(nav, title, player1Field, player2Field, tournamentField, scoreField, saveButton);
