@@ -2,13 +2,13 @@ package com.yassine.easportsfc;
 
 public class Partij {
     private int id;
-    private Player speler1;
-    private Player speler2;
+    private Speler speler1;
+    private Speler speler2;
     private Toernooi toernooi;
     private String uitslag;
 
     // Constructor
-    public Partij(int id, Player speler1, Player speler2, Toernooi toernooi, String uitslag) {
+    public Partij(int id, Speler speler1, Speler speler2, Toernooi toernooi, String uitslag) {
         this.id = id;
         this.speler1 = speler1;
         this.speler2 = speler2;
@@ -25,19 +25,19 @@ public class Partij {
         this.id = id;
     }
 
-    public Player getSpeler1() {
+    public Speler getSpeler1() {
         return speler1;
     }
 
-    public void setSpeler1(Player speler1) {
+    public void setSpeler1(Speler speler1) {
         this.speler1 = speler1;
     }
 
-    public Player getSpeler2() {
+    public Speler getSpeler2() {
         return speler2;
     }
 
-    public void setSpeler2(Player speler2) {
+    public void setSpeler2(Speler speler2) {
         this.speler2 = speler2;
     }
 

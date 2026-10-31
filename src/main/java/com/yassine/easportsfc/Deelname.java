@@ -1,21 +1,21 @@
 package com.yassine.easportsfc;
 
 public class Deelname {
-    private Player speler;
+    private Speler speler;
     private Toernooi toernooi;
 
     // Constructor
-    public Deelname(Player speler, Toernooi toernooi) {
+    public Deelname(Speler speler, Toernooi toernooi) {
         this.speler = speler;
         this.toernooi = toernooi;
     }
 
     // Getters en setters
-    public Player getSpeler() {
+    public Speler getSpeler() {
         return speler;
     }
 
-    public void setSpeler(Player speler) {
+    public void setSpeler(Speler speler) {
         this.speler = speler;
     }
 

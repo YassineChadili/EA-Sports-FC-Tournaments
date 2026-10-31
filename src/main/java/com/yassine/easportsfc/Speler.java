@@ -1,12 +1,12 @@
 package com.yassine.easportsfc;
 
-public class Player {
+public class Speler {
     private int id;
     private String naam;
     private int rating;
 
     // Constructor
-    public Player(int id, String naam, int rating) {
+    public Speler(int id, String naam, int rating) {
         this.id = id;
         this.naam = naam;
         this.rating = rating;

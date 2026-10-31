@@ -88,8 +88,8 @@ public class MatchScreen {
                 String uitslag = output.getString("uitslag");
 
                 // Speler-objecten aanmaken
-                Player speler1Object = new Player(speler1Id, speler1, 0);
-                Player speler2Object = new Player(speler2Id, speler2, 0);
+                Speler speler1Object = new Speler(speler1Id, speler1, 0);
+                Speler speler2Object = new Speler(speler2Id, speler2, 0);
 
                 // Toernooi-object aanmaken
                 Toernooi toernooiObject = new Toernooi(toernooiId, toernooi, null);

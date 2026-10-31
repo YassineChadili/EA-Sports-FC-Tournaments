@@ -17,7 +17,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class EditPlayerScreen {
-    public void show(Stage stage, Scene playerScreen, Player player) {
+    public void show(Stage stage, Scene playerScreen, Speler speler) {
 
         VBox layout = new VBox();
         layout.setSpacing(15);
@@ -28,10 +28,10 @@ public class EditPlayerScreen {
         title.setPadding(new Insets(15, 12, 15, 12));
 
         // Invoervelden vullen met bestaande gegevens
-        TextField nameField = new TextField(player.getNaam());
+        TextField nameField = new TextField(speler.getNaam());
         nameField.setPromptText("Naam");
 
-        TextField ratingField = new TextField(Integer.toString(player.getRating()));
+        TextField ratingField = new TextField(Integer.toString(speler.getRating()));
         ratingField.setPromptText("Rating");
 
         // Navigatie
@@ -82,14 +82,14 @@ public class EditPlayerScreen {
 
                 statement.setString(1, naam);
                 statement.setInt(2, rating);
-                statement.setInt(3, player.getId());
+                statement.setInt(3, speler.getId());
 
                 int rowsUpdated = statement.executeUpdate();
 
                 if (rowsUpdated > 0) {
-                    // Het Player-object bijwerken
-                    player.setNaam(naam);
-                    player.setRating(rating);
+                    // Het Speler-object bijwerken
+                    speler.setNaam(naam);
+                    speler.setRating(rating);
 
                     System.out.println("Speler succesvol bijgewerkt!");
 

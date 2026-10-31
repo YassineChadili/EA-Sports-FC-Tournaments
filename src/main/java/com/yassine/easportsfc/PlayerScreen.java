@@ -57,16 +57,16 @@ public class PlayerScreen {
             Statement statement = connection.createStatement();
             ResultSet output = statement.executeQuery("SELECT * FROM spelers");
             while(output.next()) {
-                // Gegevens uit de database in een Player-object plaatsen
-                Player player = new Player(
+                // Gegevens uit de database in een Speler-object plaatsen
+                Speler speler = new Speler(
                         output.getInt("id"),
                         output.getString("naam"),
                         output.getInt("rating")
                 );
 
-                // Gegevens uit het Player-object halen
-                Label naam = new Label("Speler: " + player.getNaam());
-                Label rating = new Label("Rating: " + Integer.toString(player.getRating()));
+                // Gegevens uit het Speler-object halen
+                Label naam = new Label("Speler: " + speler.getNaam());
+                Label rating = new Label("Rating: " + Integer.toString(speler.getRating()));
 
                 // Ruimte rond de labels
                 naam.setPadding(new Insets(5, 12, 0, 12));
@@ -80,7 +80,7 @@ public class PlayerScreen {
 
                 editButton.setOnAction(event -> {
                     EditPlayerScreen editPlayerScreen = new EditPlayerScreen();
-                    editPlayerScreen.show(stage, playerScreen, player);
+                    editPlayerScreen.show(stage, playerScreen, speler);
                 });
 
                 Button deleteButton = new Button("Verwijderen");
@@ -95,7 +95,7 @@ public class PlayerScreen {
                          PreparedStatement deleteStatement  =
                                  deleteConnection.prepareStatement(sql)) {
 
-                        deleteStatement .setInt(1, player.getId());
+                        deleteStatement .setInt(1, speler.getId());
 
                         int rowsDeleted = deleteStatement .executeUpdate();
 
