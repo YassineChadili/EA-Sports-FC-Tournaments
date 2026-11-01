@@ -43,6 +43,8 @@ public class EditTournamentScreen {
         nav.setStyle("-fx-background-color: #ff6500;");
 
         Button backButton = new Button("Terug");
+        backButton.setPrefSize(130, 35);
+        backButton.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
 
         backButton.setOnAction(event -> {
             new TournamentScreen().show(stage, tournamentScreen);

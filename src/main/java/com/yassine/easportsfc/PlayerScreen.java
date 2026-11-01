@@ -1,9 +1,11 @@
 package com.yassine.easportsfc;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -30,9 +32,11 @@ public class PlayerScreen {
         nav.setSpacing(10);
         nav.setStyle("-fx-background-color: #ff6500;");
         Button backButton = new Button("Terug");
-        backButton.setPrefSize(100, 20);
+        backButton.setPrefSize(130, 35);
+        backButton.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
         Button playerAdd = new Button("Speler aanmaken");
-        playerAdd.setPrefSize(100, 20);
+        playerAdd.setPrefSize(130, 35);
+        playerAdd.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
 
         Scene playerScreen  = new Scene(layout, 800, 500);
 
@@ -65,18 +69,30 @@ public class PlayerScreen {
                 );
 
                 // Gegevens uit het Speler-object halen
+                Label id = new Label("ID: " + Integer.toString(speler.getId()));
                 Label naam = new Label("Speler: " + speler.getNaam());
                 Label rating = new Label("Rating: " + Integer.toString(speler.getRating()));
 
                 // Ruimte rond de labels
+                id.setPadding(new Insets(5, 12, 0, 12));
                 naam.setPadding(new Insets(5, 12, 0, 12));
                 rating.setPadding(new Insets(5, 12, 0, 12));
 
                 // Een horizontale layout maken voor één speler
                 HBox playerRow = new HBox();
                 playerRow.setSpacing(15);
+                playerRow.setPadding(new Insets(10));
+                playerRow.setAlignment(Pos.CENTER_LEFT);
 
                 Button editButton = new Button("Bewerken");
+                editButton.setPrefSize(90, 30);
+
+                editButton.setStyle(
+                        "-fx-background-color: #eeeeee;" +
+                                "-fx-text-fill: #333333;" +
+                                "-fx-background-radius: 5;" +
+                                "-fx-cursor: hand;"
+                );
 
                 editButton.setOnAction(event -> {
                     EditPlayerScreen editPlayerScreen = new EditPlayerScreen();
@@ -84,6 +100,14 @@ public class PlayerScreen {
                 });
 
                 Button deleteButton = new Button("Verwijderen");
+                deleteButton.setPrefSize(100, 30);
+
+                deleteButton.setStyle(
+                        "-fx-background-color: #ff6500;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-background-radius: 5;" +
+                                "-fx-cursor: hand;"
+                );
 
                 deleteButton.setOnAction(event -> {
                     String sql = "DELETE FROM spelers WHERE id = ?";
@@ -113,7 +137,7 @@ public class PlayerScreen {
                     }
                 });
 
-                playerRow.getChildren().addAll(naam, rating, editButton, deleteButton);
+                playerRow.getChildren().addAll(id, naam, rating, editButton, deleteButton);
 
                 // De volledige rij toevoegen aan de hoofd-layout
                 layout.getChildren().add(playerRow);

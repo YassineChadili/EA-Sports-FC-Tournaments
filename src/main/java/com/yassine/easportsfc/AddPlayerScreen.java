@@ -39,7 +39,8 @@ public class AddPlayerScreen {
         nav.setSpacing(10);
         nav.setStyle("-fx-background-color: #ff6500;");
         Button backButton = new Button("Terug");
-        backButton.setPrefSize(100, 20);
+        backButton.setPrefSize(130, 35);
+        backButton.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
 
         // Terugknop
         backButton.setOnAction(event -> {

@@ -1,6 +1,7 @@
 package com.yassine.easportsfc;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,9 +35,11 @@ public class ParticipationScreen {
         nav.setSpacing(10);
         nav.setStyle("-fx-background-color: #ff6500;");
         Button backButton = new Button("Terug");
-        backButton.setPrefSize(100, 20);
+        backButton.setPrefSize(130, 35);
+        backButton.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
         Button participationAdd = new Button("Deelname aanmaken");
-        participationAdd.setPrefSize(100, 20);
+        participationAdd.setPrefSize(130, 35);
+        participationAdd.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
 
         Scene participationScreen = new Scene(layout, 800, 500);
 
@@ -88,9 +91,19 @@ public class ParticipationScreen {
                 // Horizontale rij
                 HBox participationRow = new HBox();
                 participationRow.setSpacing(15);
+                participationRow.setPadding(new Insets(10));
+                participationRow.setAlignment(Pos.CENTER_LEFT);
 
                 // Verwijderen
                 Button deleteButton = new Button("Verwijderen");
+                deleteButton.setPrefSize(100, 30);
+
+                deleteButton.setStyle(
+                        "-fx-background-color: #ff6500;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-background-radius: 5;" +
+                                "-fx-cursor: hand;"
+                );
 
                 deleteButton.setOnAction(event -> {
 

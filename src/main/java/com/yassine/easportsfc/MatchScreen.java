@@ -1,6 +1,7 @@
 package com.yassine.easportsfc;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -34,9 +35,11 @@ public class MatchScreen {
         nav.setSpacing(10);
         nav.setStyle("-fx-background-color: #ff6500;");
         Button backButton = new Button("Terug");
-        backButton.setPrefSize(100, 20);
+        backButton.setPrefSize(130, 35);
+        backButton.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
         Button matchAdd = new Button("Partij aanmaken");
-        matchAdd.setPrefSize(100, 20);
+        matchAdd.setPrefSize(130, 35);
+        matchAdd.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
 
         Scene matchScreen  = new Scene(layout, 800, 500);
 
@@ -118,8 +121,18 @@ public class MatchScreen {
                 // Horizontale rij maken
                 HBox matchRow = new HBox();
                 matchRow.setSpacing(15);
+                matchRow.setPadding(new Insets(10));
+                matchRow.setAlignment(Pos.CENTER_LEFT);
 
                 Button editButton = new Button("Bewerken");
+                editButton.setPrefSize(90, 30);
+
+                editButton.setStyle(
+                        "-fx-background-color: #eeeeee;" +
+                                "-fx-text-fill: #333333;" +
+                                "-fx-background-radius: 5;" +
+                                "-fx-cursor: hand;"
+                );
 
                 editButton.setOnAction(event -> {
                     EditMatchScreen editMatchScreen = new EditMatchScreen();
@@ -128,6 +141,14 @@ public class MatchScreen {
 
                 // Verwijderen-knop
                 Button deleteButton = new Button("Verwijderen");
+                deleteButton.setPrefSize(100, 30);
+
+                deleteButton.setStyle(
+                        "-fx-background-color: #ff6500;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-background-radius: 5;" +
+                                "-fx-cursor: hand;"
+                );
 
                 deleteButton.setOnAction(event -> {
 

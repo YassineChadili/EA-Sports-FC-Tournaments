@@ -42,10 +42,14 @@ public class HomeScreen extends Application {
         Button tournamentScreenButton = new Button("Toernooien pagina");
         Button participationScreenButton = new Button("Deelnames pagina");
         Button matchScreenButton = new Button("Partijen pagina");
-        playerScreenButton.setPrefSize(100, 20);
-        tournamentScreenButton.setPrefSize(100, 20);
-        participationScreenButton.setPrefSize(100, 20);
-        matchScreenButton.setPrefSize(100, 20);
+        playerScreenButton.setPrefSize(130, 35);
+        playerScreenButton.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
+        tournamentScreenButton.setPrefSize(130, 35);
+        tournamentScreenButton.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
+        participationScreenButton.setPrefSize(130, 35);
+        participationScreenButton.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
+        matchScreenButton.setPrefSize(130, 35);
+        matchScreenButton.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
 
         Scene homeScreen = new Scene(layout, 800, 500);
 

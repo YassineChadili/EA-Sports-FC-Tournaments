@@ -1,6 +1,7 @@
 package com.yassine.easportsfc;
 
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -30,9 +31,11 @@ public class TournamentScreen {
         nav.setSpacing(10);
         nav.setStyle("-fx-background-color: #ff6500;");
         Button backButton = new Button("Terug");
-        backButton.setPrefSize(100, 20);
+        backButton.setPrefSize(130, 35);
+        backButton.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
         Button tournamentAdd = new Button("Toernooi aanmaken");
-        tournamentAdd.setPrefSize(100, 20);
+        tournamentAdd.setPrefSize(130, 35);
+        tournamentAdd.setStyle("-fx-background-color: white; -fx-text-fill: #333333;");
 
         Scene tournamentScreen  = new Scene(layout, 800, 500);
 
@@ -69,18 +72,30 @@ public class TournamentScreen {
                 );
 
                 // Gegevens uit het Toernooi-object halen
+                Label id = new Label("ID: " + Integer.toString(toernooi.getId()));
                 Label naam = new Label("Toernooi: " + toernooi.getNaam());
                 Label datum = new Label("Datum: " + toernooi.getDatum());
 
                 // Ruimte rond de labels
+                id.setPadding(new Insets(5, 12, 0, 12));
                 naam.setPadding(new Insets(5, 12, 0, 12));
                 datum.setPadding(new Insets(5, 12, 0, 12));
 
                 // Een horizontale layout maken voor één toernooi
                 HBox toernooiRow = new HBox();
                 toernooiRow.setSpacing(15);
+                toernooiRow.setPadding(new Insets(10));
+                toernooiRow.setAlignment(Pos.CENTER_LEFT);
 
                 Button editButton = new Button("Bewerken");
+                editButton.setPrefSize(90, 30);
+
+                editButton.setStyle(
+                        "-fx-background-color: #eeeeee;" +
+                                "-fx-text-fill: #333333;" +
+                                "-fx-background-radius: 5;" +
+                                "-fx-cursor: hand;"
+                );
 
                 editButton.setOnAction(event -> {
                     EditTournamentScreen editTournamentScreen = new EditTournamentScreen();
@@ -88,6 +103,14 @@ public class TournamentScreen {
                 });
 
                 Button deleteButton = new Button("Verwijderen");
+                deleteButton.setPrefSize(100, 30);
+
+                deleteButton.setStyle(
+                        "-fx-background-color: #ff6500;" +
+                                "-fx-text-fill: white;" +
+                                "-fx-background-radius: 5;" +
+                                "-fx-cursor: hand;"
+                );
 
                 deleteButton.setOnAction(event -> {
                     String sql = "DELETE FROM toernooien WHERE id = ?";
@@ -118,7 +141,7 @@ public class TournamentScreen {
                     }
                 });
 
-                toernooiRow.getChildren().addAll(naam, datum, editButton, deleteButton);
+                toernooiRow.getChildren().addAll(id, naam, datum, editButton, deleteButton);
 
                 // De volledige rij toevoegen aan de hoofd-layout
                 layout.getChildren().add(toernooiRow);
