@@ -52,6 +52,14 @@ public class EditPlayerScreen {
 
         // Opslaan
         Button saveButton = new Button("Opslaan");
+        saveButton.setPrefSize(100, 30);
+
+        saveButton.setStyle(
+                "-fx-background-color: #ff6500;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-background-radius: 5;" +
+                        "-fx-cursor: hand;"
+        );
 
         saveButton.setOnAction(event -> {
 

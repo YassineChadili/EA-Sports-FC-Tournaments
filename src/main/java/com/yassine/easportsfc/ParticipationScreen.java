@@ -82,8 +82,8 @@ public class ParticipationScreen {
                 String toernooiNaam = output.getString("toernooi_naam");
 
                 // Labels
-                Label speler = new Label("Speler: " + spelerNaam);
-                Label toernooi = new Label("Toernooi: " + toernooiNaam);
+                Label speler = new Label("Speler: " + spelerNaam + " ID: " + spelerId);
+                Label toernooi = new Label("Toernooi: " + toernooiNaam + " ID: " + toernooiId);
 
                 speler.setPadding(new Insets(5, 12, 0, 12));
                 toernooi.setPadding(new Insets(5, 12, 0, 12));

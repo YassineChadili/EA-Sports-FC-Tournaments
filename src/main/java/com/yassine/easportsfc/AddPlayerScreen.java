@@ -52,6 +52,14 @@ public class AddPlayerScreen {
 
         // Opslaan-knop
         Button saveButton = new Button("Opslaan");
+        saveButton.setPrefSize(100, 30);
+
+        saveButton.setStyle(
+                "-fx-background-color: #ff6500;" +
+                        "-fx-text-fill: white;" +
+                        "-fx-background-radius: 5;" +
+                        "-fx-cursor: hand;"
+        );
 
         saveButton.setOnAction(event -> {
 
@@ -84,7 +92,7 @@ public class AddPlayerScreen {
                          connection.prepareStatement(sql)) {
 
                 statement.setString(1, naam);
-                statement.setString(2, ratingText);
+                statement.setInt(2, rating);
 
                 int rowsCreated = statement.executeUpdate();
 

@@ -107,9 +107,9 @@ public class MatchScreen {
                 );
 
                 // Labels maken
-                Label player1Label = new Label("Speler 1: " + speler1);
-                Label player2Label = new Label("Speler 2: " + speler2);
-                Label tournamentLabel = new Label("Toernooi: " + toernooi);
+                Label player1Label = new Label("Speler 1: " + speler1 + " " + speler1Id);
+                Label player2Label = new Label("Speler 2: " + speler2 + " " + speler2Id);
+                Label tournamentLabel = new Label("Toernooi: " + toernooi + " " + toernooiId);
                 Label resultLabel = new Label("Uitslag: " + uitslag);
 
                 // Ruimte rond de labels
